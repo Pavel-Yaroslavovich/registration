@@ -1,38 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./confrimPassword.module.css";
 import password from "../../../image/password.svg";
 import eyeShow from "../../../image/eyeTrue.png";
 import eyeClose from "../../../image/eyeFalse.png";
-import SignInButton from "../../signInButton/SignInButton";
 
-const ConfrimPassword = () => {
-  const [confrimPass, setConfrimPass] = useState<string>("");
+const ConfrimPassword = (props: any) => {
   const [isShow, setIsShow] = useState<boolean>(false);
+  const [confrimPass, setConfrimPass] = useState<string>("");
   const [error, setError] = useState<any | null>(null);
   const [correct, setCorrect] = useState<any | null>(null);
-  const [isOpened, setIsOpened] = useState<boolean>(false);
-  console.log(confrimPass);
+  const [isOpenedError, setIsOpenedError] = useState<boolean>(false);
 
-  const passShowTogle = () => {
+  const passShowTogleEye = () => {
     setIsShow(!isShow);
   };
 
-  const validPassword = (confrimPass: string) => {
-    return /[A-Z]/.test(confrimPass) && /[0-9]/.test(confrimPass);
-  };
-
-  const handleChange = (event: any) => {
-    if (!validPassword(event.target.value)) {
-      setError("Enter one capital letter and one number");
-      setIsOpened(true);
-    } else if (validPassword(event.target.value)) {
-      setCorrect("Correct password");
-      setIsOpened(false);
-    } else {
-      setError(null);
-    }
+  const handleChange = (event: any): void => {
     setConfrimPass(event.target.value);
   };
+
+  useEffect(() => {
+    if (props.registPass === confrimPass) {
+      setError("password not confirmed");
+      setIsOpenedError(false);
+    } else {
+      setCorrect("Correct password");
+      setIsOpenedError(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [confrimPass]);
 
   return (
     <div>
@@ -58,19 +54,19 @@ const ConfrimPassword = () => {
             className={styles.eye}
             src={eyeShow}
             alt="eye show"
-            onClick={passShowTogle}
+            onClick={passShowTogleEye}
           />
         ) : (
           <img
             className={styles.eye}
             src={eyeClose}
             alt="eye close"
-            onClick={passShowTogle}
+            onClick={passShowTogleEye}
           />
         )}
       </div>
       <hr className={styles.line} />
-      {isOpened ? (
+      {isOpenedError ? (
         <h5 className={styles.errorPassword} style={{ color: "red" }}>
           {error}
         </h5>
@@ -79,7 +75,6 @@ const ConfrimPassword = () => {
           {correct}
         </h5>
       )}
-      <SignInButton />
     </div>
   );
 };

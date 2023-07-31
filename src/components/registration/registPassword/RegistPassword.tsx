@@ -1,34 +1,33 @@
-import styles from "./signInPassword.module.css";
-import password from "../../image/password.svg";
-import eyeShow from "../../image/eyeTrue.png";
-import eyeClose from "../../image/eyeFalse.png";
+import styles from "./registPassword.module.css";
+import password from "../../../image/password.svg";
+import eyeShow from "../../../image/eyeTrue.png";
+import eyeClose from "../../../image/eyeFalse.png";
 import { useState } from "react";
 
-const SignInPassword = (props: any) => {
+const RegistPassword = (props: any) => {
   const [isShow, setIsShow] = useState<boolean>(false);
-  const [error, setError] = useState<any | null>(null);
-  const [correct, setCorrect] = useState<any | null>(null);
-  const [isOpened, setIsOpened] = useState<boolean>(false);
 
-  const passShowTogle = () => {
+  const [isOpenedError, setIsOpenedError] = useState<boolean>(false);
+
+  const passShowTogle = (): void => {
     setIsShow(!isShow);
   };
 
-  const validPassword = (pass: string) => {
-    return /[A-Z]/.test(pass) && /[0-9]/.test(pass);
+  const validPassword = (registPass: string) => {
+    return /[A-Z]/.test(registPass) && /[0-9]/.test(registPass);
   };
 
   const handleChange = (event: any) => {
     if (!validPassword(event.target.value)) {
-      setError("Enter one capital letter and one number");
-      setIsOpened(true);
+      props.setErrorRegistPass("Enter one capital letter and one number");
+      setIsOpenedError(true);
     } else if (validPassword(event.target.value)) {
-      setCorrect("Correct password");
-      setIsOpened(false);
+      props.setCorrectRegistPass("Correct password");
+      setIsOpenedError(false);
     } else {
-      setError(null);
+      props.setErrorRegistPass(null);
     }
-    props.setPass(event.target.value);
+    props.setRegistPass(event.target.value);
   };
 
   return (
@@ -46,7 +45,7 @@ const SignInPassword = (props: any) => {
           name="password"
           id="password"
           maxLength={36}
-          value={props.pass}
+          value={props.registPass}
           onChange={handleChange}
           placeholder="Enter your password"
         />
@@ -67,17 +66,17 @@ const SignInPassword = (props: any) => {
         )}
       </div>
       <hr className={styles.line} />
-      {isOpened ? (
+      {isOpenedError ? (
         <h5 className={styles.errorPassword} style={{ color: "red" }}>
-          {error}
+          {props.errorRegistPass}
         </h5>
       ) : (
         <h5 className={styles.errorPassword} style={{ color: "green" }}>
-          {correct}
+          {props.correctRegistPass}
         </h5>
       )}
     </div>
   );
 };
 
-export default SignInPassword;
+export default RegistPassword;

@@ -1,12 +1,12 @@
 import styles from "./signInButton.module.css";
 
-const SignInButton = () => {
+const SignInButton = ({ dataСhecking }: any) => {
   return (
-    <div className={styles.btn}>
-      <button className={styles.btnText} type="submit">
-        Login
-      </button>
-    </div>
+    // <div className={styles.btn}>
+    <button className={styles.btn} type="submit" onClick={dataСhecking}>
+      Login
+    </button>
+    // </div>
   );
 };
 

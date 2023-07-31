@@ -1,11 +1,13 @@
-import styles from "./signEmail.module.css";
-import mail from "../../image/mail.svg";
 import { useState } from "react";
+import styles from "./registEmail.module.css";
+import mail from "../../../image/mail.svg";
 
-const SignEmail = (props: any) => {
+const RegistEmail = () => {
+  const [email, setEmail] = useState<string>("");
   const [isOpened, setIsOpened] = useState<boolean>(false);
   const [error, setError] = useState<any | null>(null);
   const [correct, setCorrect] = useState<any | null>(null);
+  localStorage.setItem("email", email);
 
   function isValidEmail(email: string) {
     return /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i.test(
@@ -23,7 +25,7 @@ const SignEmail = (props: any) => {
     } else {
       setError(null);
     }
-    props.setEmail(event.target.value);
+    setEmail(event.target.value);
   };
 
   return (
@@ -41,7 +43,7 @@ const SignEmail = (props: any) => {
         id="email"
         maxLength={40}
         placeholder="Enter your email address"
-        value={props.email}
+        value={email}
         onChange={handleChange}
       />
       <hr className={styles.line} />
@@ -58,4 +60,4 @@ const SignEmail = (props: any) => {
   );
 };
 
-export default SignEmail;
+export default RegistEmail;
