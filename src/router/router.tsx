@@ -12,8 +12,8 @@ const router = createBrowserRouter(
       path: "registration",
       element: <Registration />,
     },
-  ],
-  { basename: "/" }
+  ]
+  // { basename: "/" }
 );
 
 export default router;
