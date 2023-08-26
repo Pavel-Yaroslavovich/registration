@@ -2,7 +2,12 @@ import styles from "./signEmail.module.css";
 import mail from "../../image/mail.svg";
 import { useState } from "react";
 
-const SignEmail = (props: any) => {
+interface Iprops {
+  email: string;
+  setEmail: (str: string) => void;
+}
+
+const SignEmail = ({ email, setEmail }: Iprops) => {
   const [isOpened, setIsOpened] = useState<boolean>(false);
   const [error, setError] = useState<any | null>(null);
   const [correct, setCorrect] = useState<any | null>(null);
@@ -13,7 +18,7 @@ const SignEmail = (props: any) => {
     );
   }
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!isValidEmail(event.target.value)) {
       setError("Incorrect email");
       setIsOpened(true);
@@ -23,7 +28,7 @@ const SignEmail = (props: any) => {
     } else {
       setError(null);
     }
-    props.setEmail(event.target.value);
+    setEmail(event.target.value);
   };
 
   return (
@@ -41,7 +46,7 @@ const SignEmail = (props: any) => {
         id="email"
         maxLength={40}
         placeholder="Enter your email address"
-        value={props.email}
+        value={email}
         onChange={handleChange}
       />
       <hr className={styles.line} />

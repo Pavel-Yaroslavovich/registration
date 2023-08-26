@@ -4,23 +4,27 @@ import password from "../../../image/password.svg";
 import eyeShow from "../../../image/eyeTrue.png";
 import eyeClose from "../../../image/eyeFalse.png";
 
-const ConfrimPassword = (props: any) => {
-  const [isShow, setIsShow] = useState<boolean>(false);
-  const [confrimPass, setConfrimPass] = useState<string>("");
-  const [error, setError] = useState<any | null>(null);
-  const [correct, setCorrect] = useState<any | null>(null);
-  const [isOpenedError, setIsOpenedError] = useState<boolean>(false);
+interface Iprops {
+  registPass: string;
+}
+
+const ConfrimPassword = ({ registPass }: Iprops) => {
+  const [isShow, setIsShow] = useState(false);
+  const [confrimPass, setConfrimPass] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [correct, setCorrect] = useState<string | null>(null);
+  const [isOpenedError, setIsOpenedError] = useState(false);
 
   const passShowTogleEye = () => {
     setIsShow(!isShow);
   };
 
-  const handleChange = (event: any): void => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setConfrimPass(event.target.value);
   };
 
   useEffect(() => {
-    if (props.registPass === confrimPass) {
+    if (registPass === confrimPass) {
       setError("password not confirmed");
       setIsOpenedError(false);
     } else {

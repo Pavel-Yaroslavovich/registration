@@ -1,12 +1,14 @@
 import styles from "./signInButton.module.css";
 
-const SignInButton = ({ dataСhecking }: any) => {
+interface Iprops {
+  dataChecking: () => void;
+}
+
+const SignInButton = ({ dataChecking }: Iprops) => {
   return (
-    // <div className={styles.btn}>
-    <button className={styles.btn} type="submit" onClick={dataСhecking}>
+    <button className={styles.btn} type="submit" onClick={dataChecking}>
       Login
     </button>
-    // </div>
   );
 };
 

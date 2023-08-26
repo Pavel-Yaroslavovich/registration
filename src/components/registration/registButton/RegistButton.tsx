@@ -1,17 +1,17 @@
 import styles from "./registButton.module.css";
 import { Link } from "react-router-dom";
 
-const RegistButton = (props: any) => {
-  console.log(props.registPass);
+interface Iprops {
+  btnRegist: (target: any) => void;
+  correctRegistPass: string | null;
+  errorRegistPass: string | null;
+}
 
-  const disabletBtnRegist = (): boolean => {
+const RegistButton = ({ btnRegist, correctRegistPass }: Iprops) => {
+  const disabletBtnRegist = () => {
     let regPass: boolean;
     let correct: string = "Correct password";
-    let error: string = "Enter one capital letter and one number";
-    if (
-      props.correctRegistPass !== correct &&
-      props.setErrorRegistPass !== error
-    ) {
+    if (correctRegistPass !== correct) {
       regPass = true;
     } else {
       regPass = false;
@@ -24,7 +24,7 @@ const RegistButton = (props: any) => {
       <button
         className={styles.btn}
         type="submit"
-        onChange={props.btnRegist}
+        onChange={btnRegist}
         disabled={disabletBtnRegist()}
       >
         Register

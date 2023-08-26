@@ -8,12 +8,12 @@ import SignInSocialMedia from "../signInSocialMedia/SignInSocialMedia";
 import SignInEncoder from "../signInEncoder/SignInEncoder";
 
 const SignInForm = () => {
-  const [email, setEmail] = useState<string>("");
-  const [pass, setPass] = useState<string>("");
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
   let registEmail: string | null = localStorage.getItem("email");
   let registPassword: string | null = localStorage.getItem("password");
 
-  const dataСhecking = (): void => {
+  const dataChecking = () => {
     if (email.length === 0 && pass.length === 0) {
       alert("Введите данные");
     } else if (email === registEmail && pass === registPassword) {
@@ -30,7 +30,7 @@ const SignInForm = () => {
         <div className={styles.content}>
           <SignEmail email={email} setEmail={setEmail} />
           <SignInPassword pass={pass} setPass={setPass} />
-          <SignInButton dataСhecking={dataСhecking} />
+          <SignInButton dataChecking={dataChecking} />
           <SignInSocialMedia />
         </div>
       </section>

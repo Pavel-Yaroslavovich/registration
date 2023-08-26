@@ -9,15 +9,16 @@ import EncoderUp from "./encoderUp/EncoderUp";
 import RegistButton from "./registButton/RegistButton";
 
 const Registration = () => {
-  const [registPass, setRegistPass] = useState<string>("");
-  const [correctRegistPass, setCorrectRegistPass] = useState<any | null>(null);
-  const [errorRegistPass, setErrorRegistPass] = useState<any | null>(null);
+  const [registPass, setRegistPass] = useState("");
+  const [correctRegistPass, setCorrectRegistPass] = useState<string | null>(
+    null
+  );
+  const [errorRegistPass, setErrorRegistPass] = useState<string | null>(null);
   localStorage.setItem("password", registPass);
 
-  const handleChangeBtnRegis = (event: any): void => {
+  const handleChangeBtnRegis = (event: any) => {
     setRegistPass(event.target.value);
   };
-  console.log(registPass);
 
   return (
     <div className={styles.container}>
@@ -37,7 +38,6 @@ const Registration = () => {
           <ConfrimPassword registPass={registPass} />
           <RegistButton
             btnRegist={handleChangeBtnRegis}
-            registPass={registPass}
             correctRegistPass={correctRegistPass}
             errorRegistPass={errorRegistPass}
           />

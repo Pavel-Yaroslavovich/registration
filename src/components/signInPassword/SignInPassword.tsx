@@ -4,11 +4,16 @@ import eyeShow from "../../image/eyeTrue.png";
 import eyeClose from "../../image/eyeFalse.png";
 import { useState } from "react";
 
-const SignInPassword = (props: any) => {
-  const [isShow, setIsShow] = useState<boolean>(false);
-  const [error, setError] = useState<any | null>(null);
-  const [correct, setCorrect] = useState<any | null>(null);
-  const [isOpened, setIsOpened] = useState<boolean>(false);
+interface Iprops {
+  pass: string;
+  setPass: (str: string) => void;
+}
+
+const SignInPassword = ({ pass, setPass }: Iprops) => {
+  const [isShow, setIsShow] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [correct, setCorrect] = useState<string | null>(null);
+  const [isOpened, setIsOpened] = useState(false);
 
   const passShowTogle = () => {
     setIsShow(!isShow);
@@ -18,7 +23,7 @@ const SignInPassword = (props: any) => {
     return /[A-Z]/.test(pass) && /[0-9]/.test(pass);
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!validPassword(event.target.value)) {
       setError("Enter one capital letter and one number");
       setIsOpened(true);
@@ -28,7 +33,7 @@ const SignInPassword = (props: any) => {
     } else {
       setError(null);
     }
-    props.setPass(event.target.value);
+    setPass(event.target.value);
   };
 
   return (
@@ -46,7 +51,7 @@ const SignInPassword = (props: any) => {
           name="password"
           id="password"
           maxLength={36}
-          value={props.pass}
+          value={pass}
           onChange={handleChange}
           placeholder="Enter your password"
         />
